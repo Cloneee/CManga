@@ -1,35 +1,14 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useContext } from "react";
 import "./layout.css";
-function MainLayout() {
-  return (
-    <div>
-      <nav className="navbar">
-        <ul>
-          <li>
-            <a href="#" className="secondary">
-              …
-            </a>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <strong>Brand</strong>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <a href="#" className="secondary">
-              …
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div className="container-fluid">
-        <Outlet />
-      </div>
-    </div>
-  );
+import { OptionContext } from "../contexts/optionContext";
+import FullscreenLayout from "./FullscreenLayout";
+import NavbarLayout from "./NavbarLayout";
+function LayoutWrapper() {
+  const optionContext = useContext(OptionContext);
+  if (optionContext?.option.isFullScreen) {
+    return <FullscreenLayout />;
+  }
+  return <NavbarLayout />;
 }
 
-export default MainLayout;
+export default LayoutWrapper;

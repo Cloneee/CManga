@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Error from "../pages/Error";
+import Error from "../../pages/Error";
 
 const ErrorBoundary: React.FC = ({ children }) => {
   const [hasError, setHasError] = useState(false);

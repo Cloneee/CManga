@@ -1,12 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import MangaCard from "../components/MangaCard/MangaCard";
 
-export default function Root() {
-  const navigate = useNavigate();
+export default function Home() {
+  // const navigate = useNavigate();
+  // const optionContext = useContext(OptionContext);
+
   return (
-    <div style={{ color: "white" }}>
-      Root
-      <button onClick={() => navigate("/404")}>404</button>
+    <div className="container-fluid">
+      <article>
+        <header>Popular</header>
+        <MangaCard />
+      </article>
+      <div>Manga list</div>
     </div>
   );
 }

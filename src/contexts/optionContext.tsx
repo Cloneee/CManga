@@ -1,7 +1,14 @@
 import React from "react";
 
-type ScreenContextType =
-  | boolean
-  | ((isFullscreen: React.SetStateAction<boolean>) => void);
-export const ScreenContext: React.Context<ScreenContextType[]> =
-  React.createContext([] as ScreenContextType[]);
+export interface IOption {
+  isFullScreen: boolean;
+  isDarkMode: boolean;
+}
+
+export interface IOptionContext {
+  option: IOption;
+  setOptionContext: React.Dispatch<React.SetStateAction<IOption>>;
+}
+export const OptionContext = React.createContext<IOptionContext | undefined>(
+  undefined
+);

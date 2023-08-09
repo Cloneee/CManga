@@ -1,24 +1,43 @@
-import React from 'react';
-import ElectronSVG from './electronjs-icon.svg'
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { MainRouter } from "./routes";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { UserContext } from "./contexts/user.context";
+import {
+  IOption,
+  IOptionContext,
+  OptionContext,
+} from "./contexts/optionContext";
 
 export const App: React.FC = () => {
+  const [user, setUser] = useState();
+  const [option, setOptionContext] = useState({
+    isFullScreen: false,
+    isDarkMode: true,
+  } as IOption);
+
+  const handleUpdateUser = (data: any) => {
+    setUser(data);
+  };
+  const optionContextValue: IOptionContext = {
+    option,
+    setOptionContext,
+  };
+
+  useEffect(() => {
+    // @ts-ignore
+    window.document
+      .querySelector("html")
+      .setAttribute("data-theme", option.isDarkMode ? "dark" : "light");
+  }, [option.isDarkMode]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ElectronSVG} className="App-logo" alt="logo" />
-        <p>
-          Electron, Typescript and React.
-        </p>      
-        <a
-          className="App-link"
-          href="https://github.com/caiulucas"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Made by caiulucas
-        </a>
-      </header>
-    </div>
+    <ErrorBoundary>
+      <OptionContext.Provider value={optionContextValue}>
+        <UserContext.Provider value={[user, handleUpdateUser]}>
+          <MainRouter />
+        </UserContext.Provider>
+      </OptionContext.Provider>
+    </ErrorBoundary>
   );
-}
+};
